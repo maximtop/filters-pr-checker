@@ -3,27 +3,22 @@ const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
+    target: 'node',
     mode: 'development',
     entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
     },
-    resolve: {
-        fallback: {
-            os: false,
-            util: false,
-            assert: false,
-            https: false,
-            http: false,
-            tls: false,
-            net: false,
-            fs: false,
-            path: false,
-        },
-    },
     module: {
         rules: [
+            {
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'swc-loader',
+                },
+            },
             {
                 test: /\.ts$/,
                 exclude: /(node_modules|bower_components)/,
