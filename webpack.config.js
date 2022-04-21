@@ -13,6 +13,9 @@ module.exports = {
     resolve: {
         extensions: ['*', '.ts', '.js'],
     },
+    externals: {
+        'playwright-chromium': 'commonjs2 playwright-chromium',
+    },
     module: {
         rules: [
             {
