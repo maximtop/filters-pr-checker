@@ -3,11 +3,9 @@ import * as github from '@actions/github';
 
 import { screenshot } from './screenshot';
 
-console.log(process.env);
-
 const run = async () => {
     try {
-        const repoToken = core.getInput('repo-token', { required: true });
+        const repoToken = core.getInput('repo_token', { required: true });
         const octokit = github.getOctokit(repoToken);
 
         const { data: pullRequest } = await octokit.rest.pulls.get({
