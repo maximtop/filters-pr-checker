@@ -13,20 +13,11 @@ inputs:
 runs:
   using: 'composite'
   steps:
-#    - name: 'Install dependencies'
-#      run: yarn install
-#      shell: 'bash'
-    - name: 'test output'
-      run: echo "${{inputs.repoToken}}"
-      shell: bash
-    - name: 'test output 2'
-      run: echo "${{inputs.test}}"
-      shell: bash
-    - name: 'test output 3'
-      run: echo "${{ toJSON(inputs) }}"
-      shell: bash
+    - name: 'Install dependencies'
+      run: yarn install
+      shell: 'bash'
     - name: 'Run action'
       run: node dist/index.js
       shell: bash
       env:
-        REPO_TOKEN: ${{ inputs.repoToken }}
+        REPO_TOKEN: ${{ inputs.repo-token }}

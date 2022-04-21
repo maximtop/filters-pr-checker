@@ -25,5 +25,3 @@ jobs:
     - uses: ./
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        test: 'maximtop'
-        test-dash: 'maximtop test dash'
