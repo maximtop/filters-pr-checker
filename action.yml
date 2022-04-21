@@ -4,6 +4,9 @@ inputs:
   repo-token:
     description: 'github token'
     required: true
+  test:
+    description: 'test'
+    required: true
 runs:
   using: 'composite'
   steps:
@@ -11,7 +14,10 @@ runs:
       run: yarn install
       shell: 'bash'
     - name: 'test output'
-      run: echo ${{inputs.repoToken}}
+      run: echo "${{inputs.repoToken}}"
+      shell: bash
+    - name: 'test output 2'
+      run: echo "${{inputs.test}}"
       shell: bash
     - name: 'Run action'
       run: node dist/index.js
