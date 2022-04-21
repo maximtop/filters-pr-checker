@@ -13,9 +13,9 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: 'Install dependencies'
-      run: yarn install
-      shell: 'bash'
+#    - name: 'Install dependencies'
+#      run: yarn install
+#      shell: 'bash'
     - name: 'test output'
       run: echo "${{inputs.repoToken}}"
       shell: bash
