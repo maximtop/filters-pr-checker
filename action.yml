@@ -5,5 +5,11 @@ inputs:
     description: 'github token'
     required: true
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: 'composite'
+  steps:
+    - name: 'Install dependencies'
+      run: yarn install
+      shell: 'bash'
+    - name: 'Run action'
+      run: node dist/index.js ${{ inputs.repoToken }}
+      shell: 'bash'
