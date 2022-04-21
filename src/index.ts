@@ -1,6 +1,8 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 
+import { screenshot } from './screenshot';
+
 const run = async () => {
     try {
         const repoToken = core.getInput('repo-token', { required: true });
@@ -15,6 +17,8 @@ const run = async () => {
                 format: 'diff',
             },
         });
+
+        await screenshot({ url: 'https://example.org', path: './scripts/example.jpeg' });
 
         // eslint-disable-next-line no-console
         console.log(pullRequest);
