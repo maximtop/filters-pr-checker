@@ -7,6 +7,9 @@ inputs:
   test:
     description: 'test'
     required: true
+  test-dash:
+    description: 'test-dash'
+    required: true
 runs:
   using: 'composite'
   steps:
@@ -18,6 +21,9 @@ runs:
       shell: bash
     - name: 'test output 2'
       run: echo "${{inputs.test}}"
+      shell: bash
+    - name: 'test output 3'
+      run: echo "${{inputs.testDash}}"
       shell: bash
     - name: 'Run action'
       run: node dist/index.js
