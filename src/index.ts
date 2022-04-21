@@ -3,6 +3,8 @@ import * as github from '@actions/github';
 
 import { screenshot } from './screenshot';
 
+console.log(process.env);
+
 const run = async () => {
     try {
         const repoToken = core.getInput('repo-token', { required: true });

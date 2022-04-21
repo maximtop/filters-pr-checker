@@ -4,12 +4,6 @@ inputs:
   repo-token:
     description: 'github token'
     required: true
-  test:
-    description: 'test'
-    required: true
-  test-dash:
-    description: 'test-dash'
-    required: true
 runs:
   using: 'composite'
   steps:
