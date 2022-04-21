@@ -24,4 +24,4 @@ jobs:
     - run: yarn install --frozen-lockfile
     - uses: ./
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
