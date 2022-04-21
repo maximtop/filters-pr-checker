@@ -3,6 +3,13 @@ import * as github from '@actions/github';
 
 import { screenshot } from './screenshot';
 
+/**
+ * - get filter before pr
+ * - make screenshot before.jpg
+ * - get filter after pr
+ * - make screenshot after.jpg
+ * - append screenshots in comments
+ */
 const run = async () => {
     try {
         const repoToken = core.getInput('repo_token', { required: true });
