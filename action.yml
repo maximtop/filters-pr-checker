@@ -10,6 +10,11 @@ runs:
     - name: 'Install dependencies'
       run: yarn install
       shell: 'bash'
+    - name: 'test output'
+      run: echo ${{inputs.repoToken}}
+      shell: bash
     - name: 'Run action'
-      run: node dist/index.js ${{ inputs.repoToken }}
-      shell: 'bash'
+      run: node dist/index.js
+      shell: bash
+      env:
+        REPO_TOKEN: ${{ inputs.repoToken }}
