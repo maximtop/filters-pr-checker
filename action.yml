@@ -23,7 +23,7 @@ runs:
       run: echo "${{inputs.test}}"
       shell: bash
     - name: 'test output 3'
-      run: echo "${{inputs}}"
+      run: echo "${{ toJSON(inputs) }}"
       shell: bash
     - name: 'Run action'
       run: node dist/index.js
