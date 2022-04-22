@@ -2,7 +2,14 @@ import * as core from '@actions/core';
 import * as github from '@actions/github';
 import { GitHub } from '@actions/github/lib/utils';
 
-import { GetPullRequestParams, GetPullRequestResponse } from './GithubApiInterfaces';
+import {
+    GetContentParams,
+    GetContentResponse,
+    GetFilesParams,
+    GetFilesResponse,
+    GetPullRequestParams,
+    GetPullRequestResponse,
+} from './GithubApiInterfaces';
 
 class GithubApi {
     private octokit: InstanceType<typeof GitHub>;
@@ -19,13 +26,36 @@ class GithubApi {
             pullNumber,
         } = params;
 
-        const response = await this.octokit.rest.pulls.get({
+        return this.octokit.rest.pulls.get({
             owner,
             repo,
             pull_number: pullNumber,
         });
+    };
 
-        return response;
+    getPullRequestFiles = async (
+        { owner, repo, pullNumber }: GetFilesParams,
+    ): Promise<GetFilesResponse> => {
+        return this.octokit.rest.pulls.listFiles({
+            owner,
+            repo,
+            pull_number: pullNumber,
+        });
+    };
+
+    getContent = async ({
+        owner,
+        repo,
+        path,
+        ref,
+    }: GetContentParams): Promise<GetContentResponse> => {
+        return this.octokit.rest.repos.getContent({
+            owner,
+            repo,
+            path,
+            ref,
+            mediaType: { format: 'raw' },
+        });
     };
 }
 

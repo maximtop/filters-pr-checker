@@ -1,9 +1,9 @@
 import 'dotenv/config';
 
 import * as core from '@actions/core';
-import * as github from '@actions/github';
-// import fs from 'fs-extra';
-//
+import fs from 'fs-extra';
+import { api } from './api';
+
 // import { screenshot } from './screenshot';
 
 /**
@@ -15,58 +15,42 @@ import * as github from '@actions/github';
  */
 const run = async () => {
     try {
-        const repoToken = core.getInput('repo_token', { required: true });
-        const octokit = github.getOctokit(repoToken);
-
         const owner = 'maximtop';
         const repo = 'AdguardFilters';
         const pullNumber = 1;
 
-        const response = await octokit.rest.pulls.get({
+        const prInfo = await api.getPullRequest({
             owner,
             repo,
-            // TODO get current pr number
-            pull_number: pullNumber,
-            // mediaType: {
-            //     format: 'diff',
-            // },
+            pullNumber,
         });
 
-        console.log(JSON.stringify(response));
+        console.log('___pr:\n', JSON.stringify(prInfo));
 
-        // const { data: changedFiles } = await octokit.request(
-        //     'GET /repos/{owner}/{repo}/pulls/{pull_number}/files',
-        //     {
-        //         owner,
-        //         repo,
-        //         pull_number: pullNumber,
-        //     },
-        // );
+        const pullRequestFiles = await api.getPullRequestFiles({
+            owner,
+            repo,
+            pullNumber,
+        });
 
-        // const baseRef = 'd0f8fd92c036cb77c281bc19d8b73d15a1c99b3b';
-        // const headRef = '4f0d7e15f12d7b9b2f39e68bdbad3e498416f6cd';
-        //
-        // const headResponse = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-        //     owner,
-        //     repo,
-        //     path: 'GermanFilter/sections/general_extensions.txt',
-        //     ref: headRef,
-        //     mediaType: { format: 'raw' },
-        // });
-        //
-        // console.log(headResponse);
-        //
-        // await fs.writeFile('head.txt', headResponse.data);
-        //
-        // const baseResponse = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-        //     owner,
-        //     repo,
-        //     path: 'GermanFilter/sections/general_extensions.txt',
-        //     ref: baseRef,
-        //     mediaType: { format: 'raw' },
-        // });
-        //
-        // await fs.writeFile('base.txt', baseResponse.data);
+        console.log('___pr files:\n', JSON.stringify(pullRequestFiles));
+
+        const baseFileContent = await api.getContent({
+            owner: prInfo.base.owner,
+            repo: prInfo.base.repo,
+            path: pullRequestFiles[0],
+            ref: prInfo.base.sha,
+        });
+
+        const headFileContent = await api.getContent({
+            owner: prInfo.head.owner,
+            repo: prInfo.head.repo,
+            path: pullRequestFiles[0],
+            ref: prInfo.head.sha,
+        });
+
+        await fs.writeFile('head.txt', headFileContent);
+        await fs.writeFile('base.txt', baseFileContent);
 
         // await screenshot({ url: 'https://example.org', path: './example.jpeg' });
 

@@ -21,5 +21,6 @@ module.exports = {
         indent: ['error', 4],
         'import/prefer-default-export': 0,
         '@typescript-eslint/indent': 0,
+        'arrow-body-style': 0,
     },
 };

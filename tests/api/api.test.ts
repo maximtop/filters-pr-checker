@@ -8,44 +8,45 @@ jest.mock('@actions/github');
 describe('api', () => {
     describe('getPullRequest', () => {
         it('picks data from pull request', async () => {
-            const headOwner = 'headOwner';
-            const headRepo = 'filtersHead';
-            const baseOwner = 'baseOwner';
-            const baseRepo = 'filtersBase';
+            const data = {
+                status: 200,
+                data: {
+                    head: {
+                        user: {
+                            login: 'headOwner',
+                        },
+                        repo: {
+                            name: 'headRepo',
+                        },
+                        sha: 'headSha',
+                    },
+                    base: {
+                        user: {
+                            login: 'baseOwner',
+                        },
+                        repo: {
+                            name: 'baseRepo',
+                        },
+                        sha: 'headSha',
+                    },
+                },
+            };
 
             jest
                 .spyOn(githubApi, 'getPullRequest')
-                .mockResolvedValue({
-                    status: 200,
-                    data: {
-                        head: {
-                            user: {
-                                login: headOwner,
-                            },
-                            repo: {
-                                name: headRepo,
-                            },
-                        },
-                        base: {
-                            user: {
-                                login: baseOwner,
-                            },
-                            repo: {
-                                name: baseRepo,
-                            },
-                        },
-                    },
-                } as GetPullRequestResponse);
+                .mockResolvedValue(data as unknown as GetPullRequestResponse);
 
             const pullRequestData = await api.getPullRequest({ owner: 'test', repo: 'test', pullNumber: 1 });
             expect(pullRequestData).toEqual({
                 head: {
-                    owner: headOwner,
-                    repo: headRepo,
+                    owner: data.data.head.user.login,
+                    repo: data.data.head.repo.name,
+                    sha: data.data.head.sha,
                 },
                 base: {
-                    owner: baseOwner,
-                    repo: baseRepo,
+                    owner: data.data.base.user.login,
+                    repo: data.data.base.repo.name,
+                    sha: data.data.base.sha,
                 },
             });
         });
