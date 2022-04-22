@@ -6,6 +6,7 @@ module.exports = {
     },
     extends: [
         'airbnb-base',
+        'airbnb-typescript/base',
         'plugin:@typescript-eslint/recommended',
         'plugin:import/recommended',
     ],
@@ -19,5 +20,6 @@ module.exports = {
     rules: {
         indent: ['error', 4],
         'import/prefer-default-export': 0,
+        '@typescript-eslint/indent': 0,
     },
 };
