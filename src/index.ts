@@ -9,6 +9,7 @@ import { getUrlFromDescription } from './helpers';
 import { screenshot } from './screenshot';
 import { Context, extension } from './extension';
 import browser from 'webextension-polyfill';
+import path from 'path';
 
 /**
  * - get filter before pr
@@ -63,13 +64,16 @@ const run = async () => {
         //     throw new Error('URL in the pull request is required');
         // }
 
+        const EXTENSION_PATH = path.resolve(__dirname, './extension');
+
         const browserContext = await chromium.launchPersistentContext('/tmp/user-data-dir', {
             headless: false,
-            // args: [
-            //     `--disable-extensions-except=${EXTENSION_PATH}`,
-            //     `--load-extension=${EXTENSION_PATH}`,
-            // ],
+            args: [
+                `--disable-extensions-except=${EXTENSION_PATH}`,
+                `--load-extension=${EXTENSION_PATH}`,
+            ],
         });
+
         console.log('start instance');
 
         const page = await browserContext.newPage();
