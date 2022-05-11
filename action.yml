@@ -12,7 +12,7 @@ runs:
       run: yarn install
       shell: 'bash'
     - name: 'Run action'
-      run: node dist/index.js
+      run: xvfb-run --auto-servernum -- node dist/index.js
       shell: bash
       env:
         INPUT_REPO_TOKEN: ${{ inputs.repo_token }}
