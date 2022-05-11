@@ -12,12 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
         with:
           node-version: 16
       - name: Install Dependencies
-        run: yarn install
-        env:
-          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+        run: yarn install --frozen-lockfile
       - name: Test Code
         uses: mujo-code/puppeteer-headful@v2
         env:
