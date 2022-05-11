@@ -12,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    # run: yarn install --frozen-lockfile // TODO uncomment
-    - run: yarn install # TODO remove line
+    - run: yarn install --frozen-lockfile
     - run: yarn test
     - run: yarn build && yarn build-extension
 
@@ -22,9 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: microsoft/playwright-github-action@v1
-    # - run: yarn install --frozen-lockfile # TODO uncomment
-    - run: yarn install # TODO remove
     - uses: ./
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}

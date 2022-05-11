@@ -9,10 +9,13 @@ runs:
   steps:
     # TODO setup node 16
     - name: 'Install dependencies'
-      run: yarn install
+      run: yarn install --frozen-lockfile
       shell: 'bash'
+    - name: Install Playwright
+      run: npx playwright install --with-deps
+      shell: bash
     - name: 'Run action'
-      run: xvfb-run --auto-servernum -- node dist/index.js
+      run: xvfb-run node dist/index.js
       shell: bash
       env:
         INPUT_REPO_TOKEN: ${{ inputs.repo_token }}
