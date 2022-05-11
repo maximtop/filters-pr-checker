@@ -31,7 +31,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Rebuild the dist/ directory
-        run: yarn build
+        run: yarn build && yarn build-extension
 
       - name: Compare the expected and actual dist/ directories
         run: |

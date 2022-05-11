@@ -6,6 +6,7 @@ import { api } from './api';
 import { getUrlFromDescription } from './helpers';
 
 import { screenshot } from './screenshot';
+import { extension } from './extension';
 
 /**
  * - get filter before pr
@@ -60,7 +61,12 @@ const run = async () => {
             throw new Error('URL in the pull request is required');
         }
 
-        await screenshot({ url, path: 'image.jpeg' });
+        const context = await extension.start();
+        await extension.config(context, headFileContent.toString());
+        await screenshot(context, { url, path: 'image.jpeg' });
+
+        await extension.config(context, baseFileContent.toString());
+        await screenshot(context, { url, path: 'image2.jpeg' });
 
         // eslint-disable-next-line no-console
         // console.log(JSON.stringify(pullRequest));

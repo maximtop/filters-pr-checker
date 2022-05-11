@@ -6,6 +6,7 @@
     "scripts": {
         "lint": "eslint .",
         "build": "webpack",
+        "build-extension": "ts-node scripts/build",
         "test": "jest",
         "watch": "webpack -w",
         "all": "yarn lint && yarn build && yarn test"
