@@ -28,7 +28,8 @@ jobs:
           node-version: 16.x
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        # run: yarn install --frozen-lockfile // TODO uncomment
+        run: yarn install
 
       - name: Rebuild the dist/ directory
         run: yarn build && yarn build-extension
