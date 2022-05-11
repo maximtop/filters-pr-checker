@@ -3,8 +3,10 @@ import 'dotenv/config';
 import * as core from '@actions/core';
 import fs from 'fs-extra';
 import { api } from './api';
+import { getUrlFromDescription } from './helpers';
 
-// import { screenshot } from './screenshot';
+import { screenshot } from './screenshot';
+import { extension } from './extension';
 
 /**
  * - get filter before pr
@@ -17,6 +19,7 @@ const run = async () => {
     try {
         const owner = 'maximtop';
         const repo = 'AdguardFilters';
+        // FIXME get current pr
         const pullNumber = 1;
 
         const prInfo = await api.getPullRequest({
@@ -25,15 +28,15 @@ const run = async () => {
             pullNumber,
         });
 
-        console.log('___pr:\n', JSON.stringify(prInfo));
+        if (!prInfo.body) {
+            throw new Error('Pull request description is required');
+        }
 
         const pullRequestFiles = await api.getPullRequestFiles({
             owner,
             repo,
             pullNumber,
         });
-
-        console.log('___pr files:\n', JSON.stringify(pullRequestFiles));
 
         const baseFileContent = await api.getContent({
             owner: prInfo.base.owner,
@@ -52,7 +55,18 @@ const run = async () => {
         await fs.writeFile('head.txt', headFileContent);
         await fs.writeFile('base.txt', baseFileContent);
 
-        // await screenshot({ url: 'https://example.org', path: './example.jpeg' });
+        const url = getUrlFromDescription(prInfo.body);
+
+        if (!url) {
+            throw new Error('URL in the pull request is required');
+        }
+
+        const context = await extension.start();
+        await extension.config(context, headFileContent.toString());
+        await screenshot(context, { url, path: 'image.jpeg' });
+
+        await extension.config(context, baseFileContent.toString());
+        await screenshot(context, { url, path: 'image2.jpeg' });
 
         // eslint-disable-next-line no-console
         // console.log(JSON.stringify(pullRequest));

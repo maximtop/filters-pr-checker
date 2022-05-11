@@ -15,6 +15,7 @@ class GithubApiProvider {
         const { data } = response;
 
         return {
+            body: data.body,
             head: {
                 owner: _.get(data.head, 'user.login'),
                 repo: _.get(data.head, 'repo.name'),

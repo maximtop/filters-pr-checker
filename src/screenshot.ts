@@ -1,17 +1,13 @@
-import { chromium } from 'playwright-chromium';
+import { Context } from './extension';
 
 interface ScreenshotOptions {
     url: string,
     path: string,
 }
 
-export const screenshot = async ({ url, path }: ScreenshotOptions) => {
-    const browser = await chromium.launch();
-    const context = await browser.newContext();
-    const page = await context.newPage();
+export const screenshot = async (context: Context, { url, path }: ScreenshotOptions) => {
+    const page = await context.browserContext.newPage();
     await page.goto(url);
 
     await page.screenshot({ path, fullPage: true });
-
-    await browser.close();
 };

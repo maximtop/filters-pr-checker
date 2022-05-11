@@ -22,5 +22,6 @@ module.exports = {
         'import/prefer-default-export': 0,
         '@typescript-eslint/indent': 0,
         'arrow-body-style': 0,
+        '@typescript-eslint/no-shadow': 0,
     },
 };
