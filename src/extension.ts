@@ -9,10 +9,9 @@ export interface Context {
 }
 
 const start = async () => {
-    const browserContext = await chromium.launchPersistentContext('tmp', {
+    const browserContext = await chromium.launchPersistentContext('/tmp/user-data-dir', {
         headless: false,
         args: [
-            '--no-sandbox',
             `--disable-extensions-except=${EXTENSION_PATH}`,
             `--load-extension=${EXTENSION_PATH}`,
         ],

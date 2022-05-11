@@ -2,11 +2,12 @@ import 'dotenv/config';
 
 import * as core from '@actions/core';
 import fs from 'fs-extra';
+import { chromium } from 'playwright-chromium';
 import { api } from './api';
 import { getUrlFromDescription } from './helpers';
 
 import { screenshot } from './screenshot';
-import { extension } from './extension';
+import { Context, extension } from './extension';
 
 /**
  * - get filter before pr
@@ -61,17 +62,30 @@ const run = async () => {
         //     throw new Error('URL in the pull request is required');
         // }
 
-        const context = await extension.start();
+        const browserContext = await chromium.launchPersistentContext('/tmp/user-data-dir', {
+            headless: false,
+            // args: [
+            //     `--disable-extensions-except=${EXTENSION_PATH}`,
+            //     `--load-extension=${EXTENSION_PATH}`,
+            // ],
+        });
+
+        const page = await browserContext.newPage();
+        await page.goto('https:///example.org');
+
+        // const browserContext = await chromium.launchPersistentContext('/tmp/user-data-dir');
+
+        // const context = await extension.start();
         // await extension.config(context, headFileContent.toString());
         // await screenshot(context, { url, path: 'image.jpeg' });
-        await extension.config(context, 'example.org##h1');
-        await screenshot(context, { url: 'https://example.org', path: 'image.jpeg' });
+        // await extension.config(context, 'example.org##h1');
+        // await screenshot(context, { url: 'https://example.org', path: 'image.jpeg' });
 
         // await extension.config(context, baseFileContent.toString());
         // await screenshot(context, { url, path: 'image2.jpeg' });
 
         // TODO unite in one module
-        await context.browserContext.close();
+        // await context.browserContext.close();
 
         // eslint-disable-next-line no-console
         // console.log(JSON.stringify(pullRequest));
