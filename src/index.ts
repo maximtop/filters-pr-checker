@@ -8,6 +8,7 @@ import { getUrlFromDescription } from './helpers';
 
 import { screenshot } from './screenshot';
 import { Context, extension } from './extension';
+import browser from 'webextension-polyfill';
 
 /**
  * - get filter before pr
@@ -69,9 +70,14 @@ const run = async () => {
             //     `--load-extension=${EXTENSION_PATH}`,
             // ],
         });
+        console.log('start instance');
 
         const page = await browserContext.newPage();
+        console.log('open new page');
         await page.goto('https:///example.org');
+        console.log('went to page');
+        await browserContext.close();
+        console.log('browser closed');
 
         // const browserContext = await chromium.launchPersistentContext('/tmp/user-data-dir');
 
