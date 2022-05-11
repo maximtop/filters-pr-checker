@@ -1,15 +1,16 @@
 import 'dotenv/config';
 
 import * as core from '@actions/core';
-import fs from 'fs-extra';
-import { chromium } from 'playwright-chromium';
-import { api } from './api';
-import { getUrlFromDescription } from './helpers';
-
-import { screenshot } from './screenshot';
-import { Context, extension } from './extension';
-import browser from 'webextension-polyfill';
+// import fs from 'fs-extra';
+// import { chromium } from 'playwright-chromium';
+// import browser from 'webextension-polyfill';
 import path from 'path';
+import puppeteer from 'puppeteer';
+// import { api } from './api';
+// import { getUrlFromDescription } from './helpers';
+//
+// import { screenshot } from './screenshot';
+// import { Context, extension } from './extension';
 
 /**
  * - get filter before pr
@@ -66,7 +67,7 @@ const run = async () => {
 
         const EXTENSION_PATH = path.resolve(__dirname, './extension');
 
-        const browserContext = await chromium.launchPersistentContext('/tmp/user-data-dir', {
+        const browserContext = await puppeteer.launch({
             headless: false,
             args: [
                 `--disable-extensions-except=${EXTENSION_PATH}`,
