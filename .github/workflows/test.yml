@@ -18,7 +18,7 @@ jobs:
 
   # test action works running from the graph
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
     steps:
     - uses: actions/checkout@v2
     - uses: ./

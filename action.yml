@@ -12,10 +12,10 @@ runs:
       run: yarn install --frozen-lockfile
       shell: 'bash'
     - name: Install Playwright
-      run: npx playwright install --with-deps
+      run: npx playwright install --with-deps chromium
       shell: bash
     - name: 'Run action'
-      run: xvfb-run node dist/index.js
+      run: node dist
       shell: bash
       env:
         INPUT_REPO_TOKEN: ${{ inputs.repo_token }}
