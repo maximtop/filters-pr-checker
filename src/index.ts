@@ -69,7 +69,10 @@ const run = async () => {
 
         const browserContext = await puppeteer.launch({
             headless: false,
+            // eslint-disable-next-line max-len
+            executablePath: process.env.PUPPETEER_EXEC_PATH, // set by mujo-code/puppeteer-headful@v2
             args: [
+                '--no-sandbox',
                 `--disable-extensions-except=${EXTENSION_PATH}`,
                 `--load-extension=${EXTENSION_PATH}`,
             ],
