@@ -63,9 +63,8 @@
     tldts "^5.6.45"
     webextension-polyfill "^0.8.0"
 
-"@adguard/tswebextension@./adguard-tswebextension-v0.0.1.tgz":
+"@adguard/tswebextension@file:./tswebextension":
   version "0.0.1"
-  resolved "./adguard-tswebextension-v0.0.1.tgz#9a2c4327c16339cbe718d3d5951dea183f0920b6"
   dependencies:
     "@adguard/assistant" "^4.3.59"
     "@adguard/filters-downloader" "^1.1.13"

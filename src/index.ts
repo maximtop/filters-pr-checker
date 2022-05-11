@@ -68,6 +68,9 @@ const run = async () => {
         await extension.config(context, baseFileContent.toString());
         await screenshot(context, { url, path: 'image2.jpeg' });
 
+        // TODO unite in one module
+        await context.browserContext.close();
+
         // eslint-disable-next-line no-console
         // console.log(JSON.stringify(pullRequest));
     } catch (e) {
