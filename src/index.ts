@@ -17,56 +17,58 @@ import { extension } from './extension';
  */
 const run = async () => {
     try {
-        const owner = 'maximtop';
-        const repo = 'AdguardFilters';
-        // FIXME get current pr
-        const pullNumber = 1;
-
-        const prInfo = await api.getPullRequest({
-            owner,
-            repo,
-            pullNumber,
-        });
-
-        if (!prInfo.body) {
-            throw new Error('Pull request description is required');
-        }
-
-        const pullRequestFiles = await api.getPullRequestFiles({
-            owner,
-            repo,
-            pullNumber,
-        });
-
-        const baseFileContent = await api.getContent({
-            owner: prInfo.base.owner,
-            repo: prInfo.base.repo,
-            path: pullRequestFiles[0],
-            ref: prInfo.base.sha,
-        });
-
-        const headFileContent = await api.getContent({
-            owner: prInfo.head.owner,
-            repo: prInfo.head.repo,
-            path: pullRequestFiles[0],
-            ref: prInfo.head.sha,
-        });
-
-        await fs.writeFile('head.txt', headFileContent);
-        await fs.writeFile('base.txt', baseFileContent);
-
-        const url = getUrlFromDescription(prInfo.body);
-
-        if (!url) {
-            throw new Error('URL in the pull request is required');
-        }
+        // // const owner = 'maximtop';
+        // // const repo = 'AdguardFilters';
+        // // // FIXME get current pr
+        // // const pullNumber = 1;
+        // //
+        // // const prInfo = await api.getPullRequest({
+        // //     owner,
+        // //     repo,
+        // //     pullNumber,
+        // // });
+        // //
+        // // if (!prInfo.body) {
+        // //     throw new Error('Pull request description is required');
+        // // }
+        // //
+        // // const pullRequestFiles = await api.getPullRequestFiles({
+        // //     owner,
+        // //     repo,
+        // //     pullNumber,
+        // // });
+        // //
+        // // const baseFileContent = await api.getContent({
+        // //     owner: prInfo.base.owner,
+        // //     repo: prInfo.base.repo,
+        // //     path: pullRequestFiles[0],
+        // //     ref: prInfo.base.sha,
+        // // });
+        // //
+        // // const headFileContent = await api.getContent({
+        // //     owner: prInfo.head.owner,
+        // //     repo: prInfo.head.repo,
+        // //     path: pullRequestFiles[0],
+        // //     ref: prInfo.head.sha,
+        // // });
+        // //
+        // // await fs.writeFile('head.txt', headFileContent);
+        // // await fs.writeFile('base.txt', baseFileContent);
+        //
+        // const url = getUrlFromDescription(prInfo.body);
+        //
+        // if (!url) {
+        //     throw new Error('URL in the pull request is required');
+        // }
 
         const context = await extension.start();
-        await extension.config(context, headFileContent.toString());
-        await screenshot(context, { url, path: 'image.jpeg' });
+        // await extension.config(context, headFileContent.toString());
+        // await screenshot(context, { url, path: 'image.jpeg' });
+        await extension.config(context, 'example.org##h1');
+        await screenshot(context, { url: 'https://example.org', path: 'image.jpeg' });
 
-        await extension.config(context, baseFileContent.toString());
-        await screenshot(context, { url, path: 'image2.jpeg' });
+        // await extension.config(context, baseFileContent.toString());
+        // await screenshot(context, { url, path: 'image2.jpeg' });
 
         // TODO unite in one module
         await context.browserContext.close();

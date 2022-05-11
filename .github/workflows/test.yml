@@ -7,20 +7,29 @@ on:
       - 'releases/*'
 
 jobs:
-  # unit tests
-  units:
+  playwright:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - run: yarn install --frozen-lockfile
-    - run: yarn test
-    - run: yarn build && yarn build-extension
+      - uses: actions/checkout@v2
+      - run: yarn install --frozen-lockfile
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+      - run: node dist
 
-  # test action works running from the graph
-  test:
-    runs-on: macos-12
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ./
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
+#  # unit tests
+#  units:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - run: yarn install --frozen-lockfile
+#    - run: yarn test
+#    - run: yarn build && yarn build-extension
+#
+#  # test action works running from the graph
+#  test:
+#    runs-on: macos-12
+#    steps:
+#    - uses: actions/checkout@v2
+#    - uses: ./
+#      with:
+#        repo_token: ${{ secrets.GITHUB_TOKEN }}
