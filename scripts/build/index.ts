@@ -11,6 +11,7 @@ const build = async () => {
         await buildRunner(config);
         await copyWar(path.resolve(__dirname, '../../dist/extension/war'));
     } catch (e) {
+        // eslint-disable-next-line no-console
         console.log(e);
         process.exit(1);
     }
