@@ -67,6 +67,8 @@ const run = async () => {
 
         const EXTENSION_PATH = path.resolve(__dirname, './extension');
 
+        console.log(process.env.PUPPETEER_EXEC_PATH);
+
         const browserContext = await puppeteer.launch({
             headless: false,
             // eslint-disable-next-line max-len

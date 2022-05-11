@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 14
       - name: Install Dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
         env:
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
         run: yarn install
