@@ -12,6 +12,7 @@ const start = async () => {
     const browserContext = await chromium.launchPersistentContext('tmp', {
         headless: false,
         args: [
+            '--no-sandbox',
             `--disable-extensions-except=${EXTENSION_PATH}`,
             `--load-extension=${EXTENSION_PATH}`,
         ],
