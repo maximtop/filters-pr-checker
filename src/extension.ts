@@ -9,7 +9,8 @@ export interface Context {
 }
 
 const start = async () => {
-    const browserContext = await chromium.launchPersistentContext('/tmp/user-data-dir', {
+    const userDataDir = '/tmp/test-user-data-dir';
+    const browserContext = await chromium.launchPersistentContext(userDataDir, {
         headless: false,
         args: [
             `--disable-extensions-except=${EXTENSION_PATH}`,
@@ -17,7 +18,10 @@ const start = async () => {
         ],
     });
 
-    const backgroundPage = await browserContext.waitForEvent('backgroundpage');
+    const backgroundPages = browserContext.backgroundPages();
+    const backgroundPage = backgroundPages.length
+        ? backgroundPages[0]
+        : await browserContext.waitForEvent('backgroundpage');
 
     await backgroundPage.waitForFunction(
         () => window.tsWebExtension.isStarted,
