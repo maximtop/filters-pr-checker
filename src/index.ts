@@ -5,7 +5,6 @@ import * as core from '@actions/core';
 // import { chromium } from 'playwright-chromium';
 // import browser from 'webextension-polyfill';
 import path from 'path';
-import puppeteer from 'puppeteer';
 import { chromium } from 'playwright-chromium';
 // import { api } from './api';
 // import { getUrlFromDescription } from './helpers';

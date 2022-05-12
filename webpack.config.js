@@ -15,7 +15,6 @@ module.exports = {
     },
     externals: {
         'playwright-chromium': 'commonjs2 playwright-chromium',
-        'puppeteer': 'commonjs2 puppeteer',
     },
     module: {
         rules: [
