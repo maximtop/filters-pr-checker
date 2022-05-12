@@ -1,7 +1,6 @@
 import 'dotenv/config';
 
 import * as core from '@actions/core';
-import fs from 'fs-extra';
 import { github, imgur } from './api';
 import { getUrlFromDescription } from './helpers';
 import { screenshot } from './screenshot';
@@ -15,6 +14,7 @@ import { extension } from './extension';
  * - append screenshots in comments
  */
 const run = async () => {
+    console.log(process.env.INPUT_IMGUR_CLIENT_ID);
     const owner = 'maximtop';
     const repo = 'AdguardFilters';
     // FIXME get current pr
