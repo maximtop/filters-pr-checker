@@ -3,6 +3,8 @@ import * as github from '@actions/github';
 import { GitHub } from '@actions/github/lib/utils';
 
 import {
+    CreateCommentParams,
+    CreateCommentResponse,
     GetContentParams,
     GetContentResponse,
     GetFilesParams,
@@ -54,6 +56,21 @@ class GithubApi {
             repo,
             path,
             ref,
+            mediaType: { format: 'raw' },
+        });
+    };
+
+    createComment = async ({
+        owner,
+        repo,
+        issueNumber,
+        body,
+    }: CreateCommentParams): Promise<CreateCommentResponse> => {
+        return this.octokit.rest.issues.createComment({
+            owner,
+            repo,
+            body,
+            issue_number: issueNumber,
             mediaType: { format: 'raw' },
         });
     };

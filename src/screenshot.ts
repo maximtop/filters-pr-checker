@@ -9,5 +9,5 @@ export const screenshot = async (context: Context, { url, path }: ScreenshotOpti
     const page = await context.browserContext.newPage();
     await page.goto(url);
 
-    await page.screenshot({ path, fullPage: true });
+    return page.screenshot({ path, fullPage: true });
 };

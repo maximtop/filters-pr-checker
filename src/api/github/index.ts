@@ -1,3 +1,3 @@
 import { GithubApiProvider } from './GithubApiProvider';
 
-export const api = new GithubApiProvider();
+export const github = new GithubApiProvider();

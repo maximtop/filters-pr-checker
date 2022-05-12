@@ -1,6 +1,6 @@
-import { api } from '../../src/api';
-import { githubApi } from '../../src/api/GithubApi';
-import { GetPullRequestResponse } from '../../src/api/GithubApiInterfaces';
+import { github } from '../../src/api';
+import { githubApi } from '../../src/api/github/GithubApi';
+import { GetPullRequestResponse } from '../../src/api/github/GithubApiInterfaces';
 
 jest.mock('@actions/core');
 jest.mock('@actions/github');
@@ -36,7 +36,7 @@ describe('api', () => {
                 .spyOn(githubApi, 'getPullRequest')
                 .mockResolvedValue(data as unknown as GetPullRequestResponse);
 
-            const pullRequestData = await api.getPullRequest({ owner: 'test', repo: 'test', pullNumber: 1 });
+            const pullRequestData = await github.getPullRequest({ owner: 'test', repo: 'test', pullNumber: 1 });
             expect(pullRequestData).toEqual({
                 head: {
                     owner: data.data.head.user.login,

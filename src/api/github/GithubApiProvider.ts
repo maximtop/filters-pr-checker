@@ -1,7 +1,12 @@
 import _ from 'lodash';
 
 import { githubApi } from './GithubApi';
-import { GetContentParams, GetFilesParams, GetPullRequestParams } from './GithubApiInterfaces';
+import {
+    CreateCommentParams,
+    GetContentParams,
+    GetFilesParams,
+    GetPullRequestParams,
+} from './GithubApiInterfaces';
 
 class GithubApiProvider {
     // eslint-disable-next-line class-methods-use-this
@@ -52,6 +57,13 @@ class GithubApiProvider {
         if (response.status !== 200) {
             throw new Error(`Couldn't get content by params: ${JSON.stringify(params)}, status: ${response.status}`);
         }
+
+        return response.data;
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    async createComment(params: CreateCommentParams) {
+        const response = await githubApi.createComment(params);
 
         return response.data;
     }

@@ -4,10 +4,12 @@ inputs:
   repo_token:
     description: 'github token'
     required: true
+  imgur_client_id:
+    description: 'imgur client id'
+    required: true
 runs:
   using: 'composite'
   steps:
-    # TODO setup node 16
     - name: 'Install dependencies'
       run: yarn install --frozen-lockfile
       shell: 'bash'
@@ -19,3 +21,4 @@ runs:
       shell: bash
       env:
         INPUT_REPO_TOKEN: ${{ inputs.repo_token }}
+        INPUT_IMGUR_CLIENT_ID: ${{ inputs.imgur_client_id }}
