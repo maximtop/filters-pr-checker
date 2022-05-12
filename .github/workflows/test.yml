@@ -1,39 +1,39 @@
-name: "units-test"
-on:
-  pull_request:
-  push:
-    branches:
-      - main
-
-jobs:
-  playwright:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Install playwright
-        run: npx playwright install --with-deps chromium
-      - name: Run test
-        run: xvfb-run node dist/index.js
-
-#  # unit tests
-#  units:
+#name: "units-test"
+#on:
+#  pull_request:
+#  push:
+#    branches:
+#      - main
+#
+#jobs:
+#  playwright:
 #    runs-on: ubuntu-latest
 #    steps:
-#    - uses: actions/checkout@v2
-#    - run: yarn install --frozen-lockfile
-#    - run: yarn test
-#    - run: yarn build && yarn build-extension
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 16
+#      - name: Install dependencies
+#        run: yarn install --frozen-lockfile
+#      - name: Install playwright
+#        run: npx playwright install --with-deps chromium
+#      - name: Run test
+#        run: xvfb-run node dist/index.js
 #
-#  # test action works running from the graph
-#  test:
-#    runs-on: macos-12
-#    steps:
-#    - uses: actions/checkout@v2
-#    - uses: ./
-#      with:
-#        repo_token: ${{ secrets.GITHUB_TOKEN }}
+##  # unit tests
+##  units:
+##    runs-on: ubuntu-latest
+##    steps:
+##    - uses: actions/checkout@v2
+##    - run: yarn install --frozen-lockfile
+##    - run: yarn test
+##    - run: yarn build && yarn build-extension
+##
+##  # test action works running from the graph
+##  test:
+##    runs-on: macos-12
+##    steps:
+##    - uses: actions/checkout@v2
+##    - uses: ./
+##      with:
+##        repo_token: ${{ secrets.GITHUB_TOKEN }}

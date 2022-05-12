@@ -1,0 +1,21 @@
+name: "test-cli"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Install playwright
+        run: npx playwright install --with-deps chromium
+      - name: Test Code
+        run: xvfb-run node dist/index.js
