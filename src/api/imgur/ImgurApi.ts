@@ -8,7 +8,7 @@ export class ImgurApi {
     private readonly clientId: string;
 
     constructor() {
-        this.clientId = core.getInput('client_id', { required: true });
+        this.clientId = core.getInput('imgur_client_id', { required: true });
     }
 
     async makeRequest(url: string, method: Method, options: AxiosRequestConfig) {
