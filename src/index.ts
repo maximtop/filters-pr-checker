@@ -50,9 +50,6 @@ const run = async () => {
         ref: prInfo.head.sha,
     });
 
-    await fs.writeFile('head.txt', headFileContent);
-    await fs.writeFile('base.txt', baseFileContent);
-
     const url = getUrlFromDescription(prInfo.body);
 
     if (!url) {
