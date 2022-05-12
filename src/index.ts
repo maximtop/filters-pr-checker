@@ -14,7 +14,6 @@ import { extension } from './extension';
  * - append screenshots in comments
  */
 const run = async () => {
-    console.log(process.env.INPUT_IMGUR_CLIENT_ID);
     const owner = 'maximtop';
     const repo = 'AdguardFilters';
     // FIXME get current pr
