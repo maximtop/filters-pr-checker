@@ -17,5 +17,7 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Install playwright
         run: npx playwright install --with-deps chromium
+      - name: Build dist
+        run: yarn build && yarn build-extension
       - name: Test Code
         run: xvfb-run node dist/index.js
