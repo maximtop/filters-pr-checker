@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 'releases/*'
 
 jobs:
   playwright:
@@ -12,18 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
-        env:
-          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
         with:
           node-version: 16
-      - name: Install Dependencies
+      - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Test Code
-        uses: mujo-code/puppeteer-headful@v2
-        env:
-          CI: 'true'
-        with:
-          args: node dist
+      - name: Install playwright
+        run: npx playwright install --with-deps chromium
+      - name: Run test
+        run: xvfb-run node dist/index.js
 
 #  # unit tests
 #  units:

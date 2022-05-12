@@ -6,6 +6,7 @@ import * as core from '@actions/core';
 // import browser from 'webextension-polyfill';
 import path from 'path';
 import puppeteer from 'puppeteer';
+import { chromium } from 'playwright-chromium';
 // import { api } from './api';
 // import { getUrlFromDescription } from './helpers';
 //
@@ -65,29 +66,39 @@ const run = async () => {
         //     throw new Error('URL in the pull request is required');
         // }
 
-        const EXTENSION_PATH = path.resolve(__dirname, './extension');
+        const pathToExtension = path.join(__dirname, './extension');
+        console.log(pathToExtension);
 
-        console.log(process.env.PUPPETEER_EXEC_PATH);
-
-        const browserContext = await puppeteer.launch({
+        const userDataDir = '/tmp/test-user-data-dir';
+        const browserContext = await chromium.launchPersistentContext(userDataDir, {
             headless: false,
-            // eslint-disable-next-line max-len
-            executablePath: process.env.PUPPETEER_EXEC_PATH, // set by mujo-code/puppeteer-headful@v2
             args: [
-                '--no-sandbox',
-                `--disable-extensions-except=${EXTENSION_PATH}`,
-                `--load-extension=${EXTENSION_PATH}`,
+                `--disable-extensions-except=${pathToExtension}`,
+                `--load-extension=${pathToExtension}`,
             ],
         });
 
-        console.log('start instance');
+        try {
+            const backgroundPages = browserContext.backgroundPages();
+            const backgroundPage = backgroundPages.length
+                ? backgroundPages[0]
+                : await browserContext.waitForEvent('backgroundpage');
+            console.log(backgroundPage);
+        } catch (e) {
+            console.log(e.message);
+        }
+
+        // const result = await backgroundPage.evaluate(() => window.playwright);
+        // assert(result === 'test');
+        // console.log('Found expected value');
 
         const page = await browserContext.newPage();
-        console.log('open new page');
         await page.goto('https:///example.org');
-        console.log('went to page');
+        const h1 = await page.locator('h1');
+        console.log(await h1.textContent());
+
+        // Test the background page as you would any other page.
         await browserContext.close();
-        console.log('browser closed');
 
         // const browserContext = await chromium.launchPersistentContext('/tmp/user-data-dir');
 
