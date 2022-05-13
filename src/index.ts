@@ -8,11 +8,11 @@ import { screenshot } from './screenshot';
 import { extension } from './extension';
 
 /**
- * - get filter before pr
- * - make screenshot before.jpg
- * - get filter after pr
- * - make screenshot after.jpg
- * - append screenshots in comments
+ * - gets filter before pr
+ * - makes screenshot before.jpg
+ * - gets filter after pr
+ * - makes screenshot after.jpg
+ * - appends screenshots in comment to current pr
  */
 const run = async () => {
     const { owner, repo } = gh.context.repo;
