@@ -69,7 +69,7 @@ const run = async () => {
         imgur.upload(headScreenshot),
     ]);
 
-    const body = `before: ![baseScreenshot](${baseLink}) \r\nafter:![headScreenshot](${headLink})`;
+    const body = `before: ![baseScreenshot](${baseLink}) \r\nafter: ![headScreenshot](${headLink})`;
 
     await github.createComment({
         repo,
