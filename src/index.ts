@@ -14,6 +14,7 @@ import { extension } from './extension';
  * - append screenshots in comments
  */
 const run = async () => {
+    console.log('start');
     const owner = 'maximtop';
     const repo = 'AdguardFilters';
     // FIXME get current pr
