@@ -1,4 +1,4 @@
-name: "test running on pr"
+name: "test on pr"
 on:
   pull_request:
 
