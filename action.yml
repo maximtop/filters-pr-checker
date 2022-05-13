@@ -14,13 +14,16 @@ runs:
   using: 'composite'
   steps:
     - name: 'Install dependencies'
-      run: cd ${{github.action_path}} && yarn install --frozen-lockfile
+      working-directory: ${{github.action_path}}
+      run: yarn install --frozen-lockfile
       shell: bash
     - name: 'Install playwright'
-      run: cd ${{github.action_path}} && npx playwright install --with-deps chromium
+      working-directory: ${{github.action_path}}
+      run: npx playwright install --with-deps chromium
       shell: bash
     - name: 'Run action'
-      run: cd ${{github.action_path}} && xvfb-run node dist/index.js
+      working-directory: ${{github.action_path}}
+      run: xvfb-run node dist/index.js
       shell: bash
       env:
         INPUT_REPO_TOKEN: ${{ inputs.repo_token }}
