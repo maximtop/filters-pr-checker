@@ -1,0 +1,14 @@
+name: "test running on pr"
+on:
+  pull_request:
+
+jobs:
+  # test action runs on pr
+  action-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          repo_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          imgur_client_id: ${{ secrets.IMGUR_CLIENT_ID }}
