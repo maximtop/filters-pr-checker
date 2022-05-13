@@ -73,14 +73,12 @@ const run = async () => {
 
     const body = `before: ![baseScreenshot](${baseLink}) \r\nafter:![headScreenshot](${headLink})`;
 
-    console.log(body);
-
-    // await github.createComment({
-    //     repo,
-    //     owner,
-    //     issueNumber: pullNumber,
-    //     body,
-    // });
+    await github.createComment({
+        repo,
+        owner,
+        issueNumber: pullNumber,
+        body,
+    });
 };
 
 const main = async () => {
