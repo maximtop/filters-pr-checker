@@ -66,22 +66,21 @@ const run = async () => {
     // TODO unite in one module
     await context.browserContext.close();
 
-    // const [baseLink, headLink] = await Promise.all([
-    //     imgur.upload(baseScreenshot),
-    //     imgur.upload(headScreenshot),
-    // ]);
-
-    const baseLink = 'test';
-    const headLink = 'test';
+    const [baseLink, headLink] = await Promise.all([
+        imgur.upload(baseScreenshot),
+        imgur.upload(headScreenshot),
+    ]);
 
     const body = `before: ![baseScreenshot](${baseLink}) \r\nafter:![headScreenshot](${headLink})`;
 
-    await github.createComment({
-        repo,
-        owner,
-        issueNumber: pullNumber,
-        body,
-    });
+    console.log(body);
+
+    // await github.createComment({
+    //     repo,
+    //     owner,
+    //     issueNumber: pullNumber,
+    //     body,
+    // });
 };
 
 const main = async () => {
