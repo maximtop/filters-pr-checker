@@ -14,7 +14,6 @@ import { extension } from './extension';
  * - append screenshots in comments
  */
 const run = async () => {
-    console.log('start');
     const owner = 'maximtop';
     const repo = 'AdguardFilters';
     // FIXME get current pr
@@ -67,10 +66,13 @@ const run = async () => {
     // TODO unite in one module
     await context.browserContext.close();
 
-    const [baseLink, headLink] = await Promise.all([
-        imgur.upload(baseScreenshot),
-        imgur.upload(headScreenshot),
-    ]);
+    // const [baseLink, headLink] = await Promise.all([
+    //     imgur.upload(baseScreenshot),
+    //     imgur.upload(headScreenshot),
+    // ]);
+
+    const baseLink = 'test';
+    const headLink = 'test';
 
     const body = `before: ![baseScreenshot](${baseLink}) \r\nafter:![headScreenshot](${headLink})`;
 

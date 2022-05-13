@@ -1,4 +1,3 @@
-console.log('start');
 /*
  * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
  * This devtool is neither made for production nor for readable output files.
@@ -1137,7 +1136,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dotenv_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dotenv/config */ \"./node_modules/dotenv/config.js\");\n/* harmony import */ var dotenv_config__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dotenv_config__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @actions/core */ \"./node_modules/@actions/core/lib/core.js\");\n/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./api */ \"./src/api/index.ts\");\n/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers */ \"./src/helpers.ts\");\n/* harmony import */ var _screenshot__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./screenshot */ \"./src/screenshot.ts\");\n/* harmony import */ var _extension__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./extension */ \"./src/extension.ts\");\n\n\n\n\n\n\n/**\n * - get filter before pr\n * - make screenshot before.jpg\n * - get filter after pr\n * - make screenshot after.jpg\n * - append screenshots in comments\n */ const run = async ()=>{\n    console.log(\"start\");\n    const owner = \"maximtop\";\n    const repo = \"AdguardFilters\";\n    // FIXME get current pr\n    const pullNumber = 1;\n    const prInfo = await _api__WEBPACK_IMPORTED_MODULE_2__.github.getPullRequest({\n        owner,\n        repo,\n        pullNumber\n    });\n    if (!prInfo.body) {\n        throw new Error(\"Pull request description is required\");\n    }\n    const pullRequestFiles = await _api__WEBPACK_IMPORTED_MODULE_2__.github.getPullRequestFiles({\n        owner,\n        repo,\n        pullNumber\n    });\n    const baseFileContent = await _api__WEBPACK_IMPORTED_MODULE_2__.github.getContent({\n        owner: prInfo.base.owner,\n        repo: prInfo.base.repo,\n        path: pullRequestFiles[0],\n        ref: prInfo.base.sha\n    });\n    const headFileContent = await _api__WEBPACK_IMPORTED_MODULE_2__.github.getContent({\n        owner: prInfo.head.owner,\n        repo: prInfo.head.repo,\n        path: pullRequestFiles[0],\n        ref: prInfo.head.sha\n    });\n    const url = (0,_helpers__WEBPACK_IMPORTED_MODULE_3__.getUrlFromDescription)(prInfo.body);\n    if (!url) {\n        throw new Error(\"URL in the pull request is required\");\n    }\n    const context = await _extension__WEBPACK_IMPORTED_MODULE_5__.extension.start();\n    await _extension__WEBPACK_IMPORTED_MODULE_5__.extension.config(context, baseFileContent.toString());\n    const baseScreenshot = await (0,_screenshot__WEBPACK_IMPORTED_MODULE_4__.screenshot)(context, {\n        url,\n        path: \"base_image.jpeg\"\n    });\n    await _extension__WEBPACK_IMPORTED_MODULE_5__.extension.config(context, headFileContent.toString());\n    const headScreenshot = await (0,_screenshot__WEBPACK_IMPORTED_MODULE_4__.screenshot)(context, {\n        url,\n        path: \"head_image.jpeg\"\n    });\n    // TODO unite in one module\n    await context.browserContext.close();\n    const [baseLink, headLink] = await Promise.all([\n        _api__WEBPACK_IMPORTED_MODULE_2__.imgur.upload(baseScreenshot),\n        _api__WEBPACK_IMPORTED_MODULE_2__.imgur.upload(headScreenshot), \n    ]);\n    const body = `before: ![baseScreenshot](${baseLink}) \\r\\nafter:![headScreenshot](${headLink})`;\n    await _api__WEBPACK_IMPORTED_MODULE_2__.github.createComment({\n        repo,\n        owner,\n        issueNumber: pullNumber,\n        body\n    });\n};\nconst main = async ()=>{\n    await run();\n};\n(async ()=>{\n    try {\n        await main();\n    } catch (e) {\n        _actions_core__WEBPACK_IMPORTED_MODULE_1__.setFailed(e.message);\n    }\n})();\n\n\n//# sourceURL=webpack://filters-pr-checker/./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dotenv_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dotenv/config */ \"./node_modules/dotenv/config.js\");\n/* harmony import */ var dotenv_config__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dotenv_config__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @actions/core */ \"./node_modules/@actions/core/lib/core.js\");\n/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./api */ \"./src/api/index.ts\");\n/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers */ \"./src/helpers.ts\");\n/* harmony import */ var _screenshot__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./screenshot */ \"./src/screenshot.ts\");\n/* harmony import */ var _extension__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./extension */ \"./src/extension.ts\");\n\n\n\n\n\n\n/**\n * - get filter before pr\n * - make screenshot before.jpg\n * - get filter after pr\n * - make screenshot after.jpg\n * - append screenshots in comments\n */ const run = async ()=>{\n    const owner = \"maximtop\";\n    const repo = \"AdguardFilters\";\n    // FIXME get current pr\n    const pullNumber = 1;\n    const prInfo = await _api__WEBPACK_IMPORTED_MODULE_2__.github.getPullRequest({\n        owner,\n        repo,\n        pullNumber\n    });\n    if (!prInfo.body) {\n        throw new Error(\"Pull request description is required\");\n    }\n    const pullRequestFiles = await _api__WEBPACK_IMPORTED_MODULE_2__.github.getPullRequestFiles({\n        owner,\n        repo,\n        pullNumber\n    });\n    const baseFileContent = await _api__WEBPACK_IMPORTED_MODULE_2__.github.getContent({\n        owner: prInfo.base.owner,\n        repo: prInfo.base.repo,\n        path: pullRequestFiles[0],\n        ref: prInfo.base.sha\n    });\n    const headFileContent = await _api__WEBPACK_IMPORTED_MODULE_2__.github.getContent({\n        owner: prInfo.head.owner,\n        repo: prInfo.head.repo,\n        path: pullRequestFiles[0],\n        ref: prInfo.head.sha\n    });\n    const url = (0,_helpers__WEBPACK_IMPORTED_MODULE_3__.getUrlFromDescription)(prInfo.body);\n    if (!url) {\n        throw new Error(\"URL in the pull request is required\");\n    }\n    const context = await _extension__WEBPACK_IMPORTED_MODULE_5__.extension.start();\n    await _extension__WEBPACK_IMPORTED_MODULE_5__.extension.config(context, baseFileContent.toString());\n    const baseScreenshot = await (0,_screenshot__WEBPACK_IMPORTED_MODULE_4__.screenshot)(context, {\n        url,\n        path: \"base_image.jpeg\"\n    });\n    await _extension__WEBPACK_IMPORTED_MODULE_5__.extension.config(context, headFileContent.toString());\n    const headScreenshot = await (0,_screenshot__WEBPACK_IMPORTED_MODULE_4__.screenshot)(context, {\n        url,\n        path: \"head_image.jpeg\"\n    });\n    // TODO unite in one module\n    await context.browserContext.close();\n    // const [baseLink, headLink] = await Promise.all([\n    //     imgur.upload(baseScreenshot),\n    //     imgur.upload(headScreenshot),\n    // ]);\n    const baseLink = \"test\";\n    const headLink = \"test\";\n    const body = `before: ![baseScreenshot](${baseLink}) \\r\\nafter:![headScreenshot](${headLink})`;\n    await _api__WEBPACK_IMPORTED_MODULE_2__.github.createComment({\n        repo,\n        owner,\n        issueNumber: pullNumber,\n        body\n    });\n};\nconst main = async ()=>{\n    await run();\n};\n(async ()=>{\n    try {\n        await main();\n    } catch (e) {\n        _actions_core__WEBPACK_IMPORTED_MODULE_1__.setFailed(e.message);\n    }\n})();\n\n\n//# sourceURL=webpack://filters-pr-checker/./src/index.ts?");
 
 /***/ }),
 
@@ -1418,7 +1417,7 @@ eval("module.exports = JSON.parse('[[[0,44],\"disallowed_STD3_valid\"],[[45,46],
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/
+/******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -1432,17 +1431,17 @@ eval("module.exports = JSON.parse('[[[0,44],\"disallowed_STD3_valid\"],[[45,46],
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/
+/******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+/******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+/******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -1455,7 +1454,7 @@ eval("module.exports = JSON.parse('[[[0,44],\"disallowed_STD3_valid\"],[[45,46],
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -1467,12 +1466,12 @@ eval("module.exports = JSON.parse('[[[0,44],\"disallowed_STD3_valid\"],[[45,46],
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -1483,7 +1482,7 @@ eval("module.exports = JSON.parse('[[[0,44],\"disallowed_STD3_valid\"],[[45,46],
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nmd = (module) => {
@@ -1492,13 +1491,13 @@ eval("module.exports = JSON.parse('[[[0,44],\"disallowed_STD3_valid\"],[[45,46],
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /************************************************************************/
-/******/
+/******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
-/******/
+/******/ 	
 /******/ })()
 ;
