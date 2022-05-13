@@ -22,4 +22,4 @@ jobs:
     - uses: ./
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        imgur_client_id: ${{ secrets.IMGUR_CLIENT_ID }}
+#        imgur_client_id: ${{ secrets.IMGUR_CLIENT_ID }}
