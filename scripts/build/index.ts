@@ -1,4 +1,4 @@
-// FIXME remove this rule
+// FIXME fix types in tswebextension, remove this rule
 // eslint-disable-next-line import/no-unresolved
 import { copyWar } from '@adguard/tswebextension/cli';
 import path from 'path';
