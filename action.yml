@@ -13,10 +13,13 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: 'Go to actions path'
+      run: cd ${{github.action_path}}
+      shell: bash
     - name: 'Install dependencies'
       run: yarn install --frozen-lockfile
-      shell: 'bash'
-    - name: Install Playwright
+      shell: bash
+    - name: 'Install playwright'
       run: npx playwright install --with-deps chromium
       shell: bash
     - name: 'Run action'
