@@ -62,7 +62,6 @@ const run = async () => {
     await extension.config(context, headFileContent.toString());
     const headScreenshot = await screenshot(context, { url, path: 'head_image.jpeg' });
 
-    // TODO unite in one module
     await context.browserContext.close();
 
     const [baseLink, headLink] = await Promise.all([
@@ -80,13 +79,9 @@ const run = async () => {
     });
 };
 
-const main = async () => {
-    await run();
-};
-
 (async () => {
     try {
-        await main();
+        await run();
     } catch (e) {
         core.setFailed(e.message);
     }

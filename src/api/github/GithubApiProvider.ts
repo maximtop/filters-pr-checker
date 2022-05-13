@@ -38,7 +38,6 @@ class GithubApiProvider {
     async getPullRequestFiles(params: GetFilesParams) {
         const response = await githubApi.getPullRequestFiles(params);
 
-        // TODO DRY errors validation
         if (response.status !== 200) {
             throw new Error(`Couldn't get pull request files by params: ${JSON.stringify(params)}, status: ${response.status}`);
         }
@@ -53,7 +52,6 @@ class GithubApiProvider {
     async getContent(params: GetContentParams) {
         const response = await githubApi.getContent(params);
 
-        // TODO DRY errors validation
         if (response.status !== 200) {
             throw new Error(`Couldn't get content by params: ${JSON.stringify(params)}, status: ${response.status}`);
         }
