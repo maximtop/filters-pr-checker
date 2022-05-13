@@ -1,5 +1,8 @@
 name: 'filters-pr-checker'
 description: 'Checks filters pull requests'
+branding:
+  icon: check
+  color: yellow
 inputs:
   repo_token:
     description: 'github token'
