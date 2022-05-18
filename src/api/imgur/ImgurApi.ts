@@ -9,7 +9,6 @@ export class ImgurApi {
 
     constructor() {
         this.clientId = core.getInput('imgur_client_id', { required: true });
-        console.log(this.clientId);
     }
 
     async makeRequest(url: string, method: Method, options: AxiosRequestConfig) {
