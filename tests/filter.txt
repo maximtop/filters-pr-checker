@@ -1,2 +1,0 @@
-example.org##h1
-example.com##h1

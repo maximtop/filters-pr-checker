@@ -5,9 +5,9 @@ Checks pull requests in the filtering repository running extension instance and 
 
 ## Usage
 ### Add in your GitHub action
-[//]: # (TODO update action title)
+
 ```
-      - uses: maximtop/filters-pr-checker@v1
+      - uses: adguardteam/filters-pr-checker@v1
         with:
           # Required
           repo_token: ${{ secrets.GITHUB_TOKEN }}
