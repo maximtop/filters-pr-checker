@@ -11,8 +11,8 @@
         "watch": "webpack -w",
         "all": "yarn lint && yarn build && yarn test"
     },
-    "author": "adguard@adguard.com",
-    "license": "LGPL-3.0",
+    "author": "maximtop@gmail.com",
+    "license": "MIT",
     "dependencies": {
         "@actions/core": "^1.6.0",
         "@actions/github": "^5.0.0",
